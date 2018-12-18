@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+//protoc --go_out=plugins=grpc:. waterflow.proto
+package waterflow;
+
+service Waterflow {
+    rpc GetWaterFlow (WaterFlowRequest) returns (WaterFlowReply);
+}
+
+message WaterFlowRequest {
+    int32 pageIndex = 1;
+    int32 pageSize = 2;
+}
+
+message WaterFlowReply {
+    //错误详细信息
+    string message = 1;
+    //操作状态
+    //0:操作成功
+    //1:操作失败
+    bool success = 2;
+    //文章集合
+    repeated Article data = 3;
+}
+
+message Article {
+    string articleId = 1; //文章id
+    string articleTitle = 2; //文章标题
+    int32  likeNum = 3; //点赞数量
+    float  moneyReward = 4; //文章赏金
+    float  totalReward = 5; //作者获得的总赏金
+    string articleCover = 6; // 文章封面图片
+    float  coverWH = 7; //封面图片的宽高比
+    bool   whetherLike = 8; //用户是否给文章点过赞
+    string authorId = 9; //作者id
+    string authorIcon = 10; //作者头像
+    string authorName = 11; //作者昵称
+}
